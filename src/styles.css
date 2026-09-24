@@ -1,0 +1,150 @@
+/* ══════════════════════════════════════════════════════════
+   QUANTUM VOID LOADER — styles.css (bản gốc tham khảo, chưa obfuscate)
+   Cyberpunk Hư Vô × Quantum × Divine. Pure CSS, không framework,
+   không ảnh ngoài. Mọi thứ procedural.
+   ══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap');
+
+@property --ang { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@property --plz { syntax: '<number>'; initial-value: 0; inherits: false; }
+
+:root{
+  --void:#0A0A0F; --cyan:#00FFFF; --mag:#FF00FF; --ylw:#FFFF00;
+  --vio:#7B2FFF; --ice:#F0F8FF;
+  --bg0:#050508; --panel:#0d0d16cc;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg0); color:var(--ice);
+  font-family:'Share Tech Mono',ui-monospace,Menlo,Consolas,monospace;
+  overflow:hidden; contain:strict;
+}
+h1,h2,.orb{font-family:'Orbitron','Share Tech Mono',sans-serif}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(1200px 800px at 50% 120%,#160a2e 0%,transparent 60%),
+             radial-gradient(1000px 700px at 50% -20%,#062a2e 0%,transparent 55%),
+             var(--bg0);
+  contain:layout style paint;}
+#stage::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;
+  background:repeating-linear-gradient(0deg,#ffffff08 0 1px,transparent 1px 3px);
+  mix-blend-mode:overlay;}
+.vignette{position:fixed;inset:0;pointer-events:none;z-index:55;
+  background:radial-gradient(ellipse at center,transparent 55%,#000c 100%);}
+
+/* canvases xếp lớp */
+canvas.layer{position:fixed;inset:0;width:100%;height:100%;display:block}
+#cv-matrix{z-index:1;opacity:.85}
+#cv-quantum{z-index:2;opacity:.9}
+#cv-neural{z-index:3;opacity:.8}
+#cv-core{z-index:4}
+#cv-fx{z-index:50;pointer-events:none}
+
+/* ---------- warp tunnel ---------- */
+#warp{position:fixed;inset:-20%;z-index:0;perspective:600px;pointer-events:none;contain:strict}
+#warp .ring{position:absolute;left:50%;top:50%;border:1px solid #00ffff22;border-radius:50%;
+  transform:translate(-50%,-50%) translateZ(0);animation:warpIn 3.2s linear infinite}
+#warp .ring:nth-child(odd){border-color:#ff00ff26}
+@keyframes warpIn{from{width:8vmin;height:8vmin;opacity:0}15%{opacity:.9}to{width:170vmin;height:170vmin;opacity:0}}
+
+/* ---------- core cluster ---------- */
+#core{position:relative;z-index:10;width:min(72vmin,520px);height:min(72vmin,520px);
+  display:grid;place-items:center;contain:layout style paint}
+/* plasma shield blob */
+#plasma{position:absolute;inset:-6%;z-index:0;filter:drop-shadow(0 0 24px #00ffff66) drop-shadow(0 0 60px #ff00ff33)}
+#plasma path{fill:#7b2fff14;stroke:url(#plzGrad);stroke-width:2;animation:morph 7s ease-in-out infinite alternate}
+@keyframes morph{
+  0%{d:path("M250,40 C360,50 450,140 440,250 C430,360 340,450 230,440 C120,430 40,340 50,230 C60,120 140,30 250,40 Z")}
+  50%{d:path("M250,60 C380,40 470,160 430,270 C390,380 300,470 200,430 C100,390 30,300 70,200 C110,100 150,80 250,60 Z")}
+  100%{d:path("M250,40 C340,90 460,120 450,260 C440,400 330,430 220,450 C110,470 40,360 60,230 C80,100 160,10 250,40 Z")}
+}
+/* progress fortress rings */
+.ringwrap{position:absolute;inset:0;display:grid;place-items:center}
+svg.rings{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:#ffffff10;stroke-width:10}
+.ring-fg{fill:none;stroke-linecap:round;stroke-width:10;transition:stroke-dashoffset .18s linear}
+#rTotal{stroke:url(#gradTotal);filter:drop-shadow(0 0 8px #00ffff)}
+#rSec{stroke:url(#gradSec);stroke-width:7;filter:drop-shadow(0 0 8px #ff00ff)}
+#rEnc{stroke:#FFFF00;stroke-width:4;filter:drop-shadow(0 0 6px #ffff00);animation:spinEnc 1.1s linear infinite;transform-origin:center}
+@keyframes spinEnc{to{transform:rotate(360deg)}}
+/* core nucleus */
+#nucleus{position:relative;z-index:2;width:34%;aspect-ratio:1;border-radius:50%;
+  display:grid;place-items:center;text-align:center;
+  background:radial-gradient(circle at 35% 30%,#fff 0%,#9df 4%,#00ffff55 12%,#7b2fff66 38%,#0a0a0f 72%);
+  box-shadow:0 0 40px #00ffff88,0 0 120px #ff00ff44,inset 0 0 40px #000;
+  animation:corePulse 2.4s ease-in-out infinite}
+#nucleus b{font-family:Orbitron;font-size:clamp(18px,4.6vmin,34px);font-weight:900;
+  background:linear-gradient(180deg,#fff,#00ffff);-webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 18px #00ffff88}
+@keyframes corePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+/* ---------- holographic text ---------- */
+#holo{position:fixed;z-index:20;left:50%;top:calc(50% + min(40vmin,290px));transform:translateX(-50%);
+  text-align:center;width:max-content;max-width:92vw;pointer-events:none}
+#holo .big{font-family:Orbitron;font-weight:900;font-size:clamp(15px,3.4vmin,26px);letter-spacing:.35em;
+  background:linear-gradient(100deg,#00ffff,#fff 30%,#ff00ff 55%,#ffff00 80%,#00ffff);
+  background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:holoShift 3s linear infinite;filter:drop-shadow(0 0 12px #00ffff88) drop-shadow(2px 2px 0 #ff00ff66)}
+@keyframes holoShift{to{background-position:300% 0}}
+#holo .sub{margin-top:8px;font-size:clamp(11px,2.4vmin,15px);color:#9df;letter-spacing:.2em;min-height:1.6em}
+#holo .sub::after{content:"▊";animation:blink .8s steps(1) infinite;color:var(--cyan)}
+@keyframes blink{50%{opacity:0}}
+.scan{position:relative;overflow:hidden}
+.scan::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,#00ffff33,transparent);
+  height:34%;animation:scanY 2.2s linear infinite}
+@keyframes scanY{from{top:-40%}to{top:130%}}
+
+/* ---------- HUD ---------- */
+#hud{position:fixed;z-index:30;left:0;right:0;bottom:0;display:flex;gap:10px;align-items:center;justify-content:center;
+  padding:12px;font-size:12px;color:#8ef;flex-wrap:wrap}
+.pill{border:1px solid #00ffff44;background:#0a0f1acc;border-radius:99px;padding:6px 12px;letter-spacing:.12em}
+.pill b{color:#fff}
+#viz{position:fixed;z-index:15;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:3px;align-items:flex-end;height:44px;opacity:.9}
+#viz i{width:4px;background:linear-gradient(180deg,var(--ylw),var(--mag),var(--cyan));border-radius:2px;min-height:2px}
+
+/* ---------- buttons ---------- */
+#mute{position:fixed;z-index:40;top:14px;right:14px;width:44px;height:44px;border-radius:12px;cursor:pointer;
+  border:1px solid #00ffff66;background:#0b0b14ee;color:var(--cyan);font-size:19px;
+  display:grid;place-items:center;transition:transform .15s}
+#mute:hover{transform:scale(1.08)}
+#gate{position:fixed;z-index:41;left:50%;bottom:64px;transform:translateX(-50%);
+  font-family:Orbitron;letter-spacing:.25em;font-size:13px;color:#031314;cursor:pointer;
+  background:linear-gradient(90deg,var(--cyan),#8ff);border:0;border-radius:99px;padding:12px 26px;
+  box-shadow:0 0 24px #00ffffaa;display:none}
+#gate.show{display:block;animation:gateIn .5s ease}
+@keyframes gateIn{from{opacity:0;transform:translate(-50%,10px)}}
+
+/* ---------- glitch storm ---------- */
+.glitching #core{animation:glitchJ .28s steps(2) 1}
+.glitching #holo .big{animation:holoShift 3s linear infinite,rgbSplit .28s steps(2) 1}
+@keyframes glitchJ{25%{transform:translate(-6px,3px) skewX(4deg)}50%{transform:translate(5px,-4px)}75%{transform:translate(-3px,-2px) skewX(-6deg)}}
+@keyframes rgbSplit{25%{text-shadow:-3px 0 #f0f,3px 0 #0ff}75%{text-shadow:3px 0 #f0f,-3px 0 #0ff}}
+
+/* ---------- reveal ---------- */
+#shatter{position:fixed;inset:0;z-index:70;pointer-events:none;display:none}
+#done{position:fixed;inset:0;z-index:80;display:none;place-items:center;text-align:center;padding:24px;
+  background:radial-gradient(900px 600px at 50% 40%,#101b3a 0%,#050508 65%)}
+#done.show{display:grid;animation:fadeUp .9s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
+#done .card{max-width:640px;border:1px solid #00ffff55;border-radius:20px;padding:34px 30px;background:#0b0f1acc;
+  box-shadow:0 0 60px #00ffff33,0 0 120px #ff00ff22}
+#done h1{font-family:Orbitron;letter-spacing:.2em;font-size:clamp(20px,5vmin,38px);
+  background:linear-gradient(90deg,#00ffff,#ff00ff,#ffff00);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* honeypot links — vô hình, chỉ bot theo */
+.hp{position:fixed!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;
+  opacity:0!important;font-size:0!important;color:transparent!important;pointer-events:none}
+
+/* responsive */
+@media (max-width:640px){
+  #core{width:min(88vmin,420px);height:min(88vmin,420px)}
+  #holo{top:calc(50% + min(48vmin,300px))}
+  #hud{font-size:11px}
+}
+/* tôn trọng prefers-reduced-motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  #warp,.vignette{display:none}
+}
